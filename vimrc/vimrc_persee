@@ -104,7 +104,7 @@ let g:netrw_showhide=1
 let g:netrw_winsize=20
 
 " for auto-complete
-let g:clang_library_path='/home/MP281228/lib/llvm-project/build/lib/libclang-cpp.co'
+let g:clang_library_path='/home/MP281228/lib/llvm-project/build/lib/'
 
 "
 " for autocomplete, see |ins-completion|
