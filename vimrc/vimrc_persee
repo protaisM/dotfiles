@@ -1,0 +1,179 @@
+call plug#begin()
+
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+
+call plug#end()
+
+" color scheme
+colorscheme delek
+
+set nocompatible " Disable retro-compatibility
+set visualbell " No bell sound
+filetype on " File detection
+filetype plugin on "Load plugins depending on the filetype
+set path+=** " Global search
+set wildmenu " display matching files when tab complete
+syntax on " Turn syntax highlighting on.
+set number relativenumber
+set mouse=a
+set encoding=UTF-8
+set cursorline
+"tab
+set autoindent
+set shiftwidth=4
+set tabstop=4
+set expantab
+"search
+set incsearch
+set hlsearch
+set showmatch
+set ignorecase
+
+set wrap
+set history=1000
+set splitbelow splitright
+set scrolloff=10
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+
+"what to show
+set showcmd
+set noshowmode
+" Status line
+set laststatus=2
+set statusline=
+set statusline+=%2*
+set statusline+=%{StatuslineMode()}
+set statusline+=\ 
+set statusline+=%{SpellCheckStatus()}
+set statusline+=%1*
+set statusline+=\ 
+set statusline+=%3*
+set statusline+=<
+set statusline+=-
+set statusline+=\ 
+set statusline+=%f
+set statusline+=\ 
+set statusline+=-
+set statusline+=>
+set statusline+=\ 
+set statusline+=%4*
+set statusline+=%m
+set statusline+=%=
+set statusline+=%h
+set statusline+=%r
+set statusline+=%4*
+set statusline+=%c
+set statusline+=/
+set statusline+=%l
+set statusline+=/
+set statusline+=%L
+set statusline+=\ 
+set statusline+=%1*
+set statusline+=|
+set statusline+=%y
+set statusline+=\ 
+set statusline+=%4*
+set statusline+=%P
+set statusline+=\ 
+set statusline+=%3*
+set statusline+=t:
+set statusline+=%n
+set statusline+=\ 
+
+" make tags
+command! Maketags !ctags -R .
+
+"enable undo file
+
+if version >= 703
+    set undodir=~/.vim/backup
+    set undofile
+    set undoreload=10000
+endif
+
+" for browsing
+let g:netrw_banner=0
+let g:netrw_browse_split=4
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_showhide=1
+let g:netrw_winsize=20
+
+"
+" for autocomplete, see |ins-completion|
+"^x^n for just file
+" ^x^] for tag only
+" ^x^f for files
+" ^x^v for guessing
+" ^x^i for includes
+
+" Disable auto commenting in a new line
+"autocmd Filetype * setlocal formatoptions-=c formatoptions-=r  formatoptions-=o
+
+" Load an indent file for the detected file type.
+    "filetype indent on
+
+" Do not save backup files.
+    "set nobackup
+
+"functions 
+
+" Mode
+    function! StatuslineMode()
+      let l:mode=mode()
+      if l:mode==#"n"
+        return "NORMAL"
+      elseif l:mode==#"V"
+        return "VISUAL LINE"
+      elseif l:mode==?"v"
+        return "VISUAL"
+      elseif l:mode==#"i"
+        return "INSERT"
+      elseif l:mode ==# "\<C-V>"
+        return "V-BLOCK"
+      elseif l:mode==#"R"
+        return "REPLACE"
+      elseif l:mode==?"s"
+        return "SELECT"
+      elseif l:mode==#"t"
+        return "TERMINAL"
+      elseif l:mode==#"c"
+        return "COMMAND"
+      elseif l:mode==#"!"
+        return "SHELL"
+      else
+          return "VIM"
+      endif
+    endfunction
+
+" Spell Check Status
+    function! SpellCheckStatus()
+        if &spell 
+            return " [SPELL]"
+        else
+            return ''
+        endif   
+    endfunction
+
+" Keybindings
+
+let mapleader = " "
+
+inoremap jj <Esc>
+nnoremap <leader>a ggVG
+
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+nnoremap <a-up> <c-w>+
+nnoremap <a-down> <c-w>-
+nnoremap <a-left> <c-w>>
+nnoremap <a-right> <c-w><
+
+nnoremap <c-n> :noh<CR>
