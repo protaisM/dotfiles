@@ -4,6 +4,8 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
+Plug 'xavierd/clang_complete'
+
 call plug#end()
 
 " color scheme
