@@ -1,0 +1,218 @@
+call plug#begin()
+
+" List your plugins here
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'ghifarit53/tokyonight-vim'
+
+call plug#end()
+
+" Set the color scheme
+set termguicolors
+
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 0 " 1 for italic
+
+colorscheme tokyonight
+
+set nocompatible " Disable retro-compatibility
+set visualbell " No bell sound
+filetype on " File detection
+filetype plugin on "Load plugins depending on the filetype
+set path+=** " Global search
+set wildmenu " display matching files when tab complete
+syntax on " Turn syntax highlighting on.
+set autoindent
+
+" make tags
+command! Maketags !ctags -R .
+
+" for browsing
+let g:netrw_banner=0
+let g:netrw_browse_split=4
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+"
+" for autocomplete, see |ins-completion|
+"^x^n for just file
+" ^x^] for tag only
+" ^x^f for files
+" ^x^v for guessing
+" ^x^i for includes
+
+" Disable auto commenting in a new line
+"autocmd Filetype * setlocal formatoptions-=c formatoptions-=r  formatoptions-=o
+
+" Setting the character encoding of Vim to UTF-8
+"set encoding=UTF-8
+
+" Smart tab
+	"set smarttab
+
+" Load an indent file for the detected file type.
+	"filetype indent on
+
+
+" Add numbers to the file.
+	set number relativenumber
+
+" Mouse functionality
+	set mouse=a
+
+" Highlight cursor line underneath the cursor horizontally.
+	set cursorline
+
+" Set shift width to 4 spaces.Set tab width to 4 columns.
+	set shiftwidth=4
+	set tabstop=4
+
+" If the current file type is HTML, set indentation to 2 spaces.
+	autocmd Filetype html setlocal tabstop=2 shiftwidth=2 expandtab
+
+" Do not save backup files.
+	set nobackup
+
+" Do wrap lines.
+	set wrap
+
+" While searching though a file incrementally highlight matching characters as you type.
+	set incsearch
+	set hlsearch
+
+" Ignore capital letters during search.
+	set ignorecase
+
+" Show partial command you type in the last line of the screen.
+	set showcmd
+
+" Don't show the mode you are on the last line.
+	set noshowmode
+
+" Show matching words during a search.
+	set showmatch
+
+" Set the commands to save in history default number is 20.
+	set history=1000
+
+" Setting the split window to open as i like (like in a WM - qtile)
+	set splitbelow splitright
+
+" Enable auto completion menu after pressing TAB.
+	set wildmenu
+
+" There are certain files that we would never want to edit with Vim.
+" Wild menu will ignore files with these extensions.
+	set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+
+" If Vim version is equal to or greater than 7.3 enable undo file.
+" This allows you to undo changes to a file even after saving it.
+	if version >= 703
+    	set undodir=~/.vim/backup
+    	set undofile
+    	set undoreload=10000
+	endif
+
+" File Browsing settings
+	let g:netrw_banner=0
+	let g:netrw_liststyle=3
+	let g:netrw_showhide=1
+	let g:netrw_winsize=20
+
+" Status line
+	set laststatus=2
+	set statusline=
+	set statusline+=%2*
+	set statusline+=%{StatuslineMode()}
+	set statusline+=\ 
+	set statusline+=%{SpellCheckStatus()}
+	set statusline+=%1*
+	set statusline+=\ 
+	set statusline+=%3*
+	set statusline+=<
+	set statusline+=-
+	set statusline+=\ 
+	set statusline+=%f
+	set statusline+=\ 
+	set statusline+=-
+	set statusline+=>
+	set statusline+=\ 
+	set statusline+=%4*
+	set statusline+=%m
+	set statusline+=%=
+	set statusline+=%h
+	set statusline+=%r
+	set statusline+=%4*
+	set statusline+=%c
+	set statusline+=/
+	set statusline+=%l
+	set statusline+=/
+	set statusline+=%L
+	set statusline+=\ 
+	set statusline+=%1*
+	set statusline+=|
+	set statusline+=%y
+	set statusline+=\ 
+	set statusline+=%4*
+	set statusline+=%P
+	set statusline+=\ 
+	set statusline+=%3*
+	set statusline+=t:
+	set statusline+=%n
+	set statusline+=\ 
+
+" Mode
+	function! StatuslineMode()
+	  let l:mode=mode()
+	  if l:mode==#"n"
+	    return "NORMAL"
+	  elseif l:mode==#"V"
+	    return "VISUAL LINE"
+	  elseif l:mode==?"v"
+	    return "VISUAL"
+	  elseif l:mode==#"i"
+	    return "INSERT"
+	  elseif l:mode ==# "\<C-V>"
+		return "V-BLOCK"
+	  elseif l:mode==#"R"
+	    return "REPLACE"
+	  elseif l:mode==?"s"
+	    return "SELECT"
+	  elseif l:mode==#"t"
+	    return "TERMINAL"
+	  elseif l:mode==#"c"
+	    return "COMMAND"
+	  elseif l:mode==#"!"
+	    return "SHELL"
+	  else
+		  return "VIM"
+	  endif
+	endfunction
+	
+
+" Spell Check Status
+	function! SpellCheckStatus()
+		if &spell 
+			return " [SPELL]"
+		else
+			return ''
+		endif	
+	endfunction
+
+" Keybindings
+
+let mapleader = " "
+
+inoremap jj <Esc>
+
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+nnoremap J <c-d>
+nnoremap K <c-u>
+
