@@ -24,7 +24,7 @@ set cursorline
 set autoindent
 set shiftwidth=4
 set tabstop=4
-set expantab
+set expandtab
 "search
 set incsearch
 set hlsearch
